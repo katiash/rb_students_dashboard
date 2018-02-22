@@ -1,0 +1,12 @@
+<h1>Students#show</h1>
+<p>Find me in app/views/students/show.html.erb</p>
+
+    <% @students.each do |s|%>
+        <table>
+            <tr>
+                <td><%=s.first_name%></td>
+                <td><%=s.last_name%></td>
+                <td><%=s.email%></td>
+                <td><%=s.created_at.strftime("%Y-%m-%d")%></td>
+            </tr>
+    <%end%>

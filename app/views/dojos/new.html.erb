@@ -1,0 +1,31 @@
+<%@title="New Dojo"%>
+
+
+<h1>Dojos#new</h1>
+<p>Find me in app/views/dojos/new.html.erb</p>
+
+<p id='alert'><%=alert%></p>
+<p>The full params are: <%=params%></p>
+<%if @new_dojo.errors.count>0 %>
+    <%=pluralize(@new_dojo.errors.count, "error") %> have prevented the submission from being saved to records:
+    <ul>
+        <% @new_dojo.errors.full_messages.each do |error|%>
+        <li> <%=error%></li>
+        <%end%>
+    </ul>
+<%end%>
+
+<form action="/dojos" method="post" id="dojo_create_form">
+    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+    <label for="dojo[branch]">Branch:</label>
+    <input type="text" name="dojo[branch]" value="<%=@new_dojo.branch%>" >
+    <label for="dojo[street]">Street:</label>
+    <input type="text" name="dojo[street]" value="<%=@new_dojo.street%>">
+    <label for="dojo[city]">City:</label>
+    <input type="text" name="dojo[city]" value="<%=@new_dojo.city%>" >
+    <label for="dojo[state]">State:</label>
+    <input type="text" name="dojo[state]" value="<%=@new_dojo.state%>" >
+    <input type="submit" value = "Submit">
+</form>
+
+<%=link_to 'Home', dojos_path%>

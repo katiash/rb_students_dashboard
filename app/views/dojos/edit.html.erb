@@ -1,0 +1,40 @@
+<%@title="Edit #{@dojo.branch[3..@dojo.branch.length]} Dojo"%>
+<h1>Dojos#edit</h1>
+<p>Find me in app/views/dojos/edit.html.erb</p>
+
+
+<h1>Editing <%=@dojo.branch[3..@dojo.branch.length]%></h1>
+
+
+<p id='alert'><%=alert%></p>
+<p>The full params are: <%=params%></p>
+<%if @dojo.errors.count>0 %>
+    <%=pluralize(@dojo.errors.count, "error") %> have prevented the submission from being saved to records:
+    <ul>
+        <% @dojo.errors.full_messages.each do |error|%>
+        <li> <%=error%></li>
+        <%end%>
+    </ul>
+<%end%>
+
+<%# Bellow HIDDEN field solves the problem of still rendering the actual object in DB and the errors on 
+the attempt to update in the UPDATE method and then RENDER this view again directly%>
+<input type="hidden" value="<%=@dojo=Dojo.find(params[:id])%>">
+
+<form action="/dojos/<%=params[:id]%>" method="post" id="dojo_edit_form">
+<input type="hidden" name = "_method" value="patch">
+    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+    <label for="dojo[branch]">Branch:</label>
+    <input type="text" name="dojo[branch]" value="<%=@dojo.branch%>" >
+    <label for="dojo[street]">Street:</label>
+    <input type="text" name="dojo[street]" value="<%=@dojo.street%>">
+    <label for="dojo[city]">City:</label>
+    <input type="text" name="dojo[city]" value="<%=@dojo.city%>" >
+    <label for="dojo[state]">State:</label>
+    <input type="text" name="dojo[state]" value="<%=@dojo.state%>" >
+    <input type="submit" value = "Update">
+</form>
+
+<%=link_to 'Home', dojos_path%>
+<%=link_to 'Show', dojo_path%>
+

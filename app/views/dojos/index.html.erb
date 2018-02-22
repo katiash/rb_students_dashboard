@@ -1,0 +1,67 @@
+<%@title="All the Dojos"%>
+
+<h2>Listing <%=@dojos.all.count%> Dojos</h2>
+
+<!-- rendering the header partial from another folder. Notice the omission of the underscore -->
+<%= render "shared/header" %>
+<h1>This is the index view for all the students</h1>
+<!-- rendering the student_partial partial from the same folder. -->
+<%= render "student_partial" %>
+<!-- rendering the footer partial from another folder. -->
+<%= render "shared/footer" %>
+
+<h1>Dojos#index</h1>
+<p>Find me in app/views/dojos/index.html.erb</p>
+<p name='notice'><%=notice%></p>
+<p name='alert'><%=alert%></p>
+
+<table>
+<tr>
+    <th>Coding Dojo Branch</th>
+    <th>Street</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Actions</th>
+</tr>
+    <% @dojos.each do |dojo| %>
+        <tr>
+            <td><%=dojo.branch%></td>
+            <td><%=dojo.street%></td>
+            <td><%=dojo.city%></td>
+            <td><%=dojo.state%></td>
+            <td><%= link_to 'Show', url_for(dojo) %>
+            <%= link_to 'Edit', [:edit, dojo] %>
+            <form action= '/dojos/<%=dojo.id%>' method='post'>
+                <input type="hidden" name="_method" value="delete">
+                <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+                <input type="submit" name="commit" value="Delete">
+            </form>
+            <%# <%= link_to 'Destroy', [dojo, method: :delete, data: { confirm: 'Are you sure?' }] %>
+            </td>
+        </tr>
+    <%end%> 
+        
+        <%# 
+            SHOWS:
+            link_to 'Show', user_path(user)
+            # BELOW WORKS JUST AS ABOVE, IN FACT SCAFFOLDING GENERATES THIS LINE:
+            link_to 'Show', user
+            
+            EDITS:
+            <= link_to "Edit", url_for([:edit, @post, my_parameter: "parameter_value"])>
+        %#  <= link_to 'Edit', edit_user_url(user) >
+            <= link_to("Edit", [:edit, @post, my_parameter: "parameter_value"]) > ???
+            
+            DESTROYS:
+            link_to('Destroy', [user, method: :delete, data: { confirm: 'Are you sure?' }])  
+        %>
+
+</table>
+
+<br>
+<%=link_to 'New Dojo', new_path %>
+
+<%# <%= url_for(@workshop) %>
+<%# # calls @workshop.to_param which by default returns the id of the object stored in the  %>
+<%# # @workshop instance variable: %>
+<%# # => /workshops/5 %>

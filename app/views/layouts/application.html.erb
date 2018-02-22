@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> <%=@title%></title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>
+
+<!--There are three main components that make up a layout file.
+
+Asset tag helpers
+Using yield and content_for
+Using partials
+
+
+Asset Tag Helpers:
+- These helpers are methods that generate HTML for all types of assets.
+- In total, there are 6 helpers:
+  + auto_discovery_link_tag (for RSS or Atom feeds)
+  + javascript_include_tag (linking Javascript files)
+  + stylesheet_link_tag (linking to CSS files)
+  + image_tag (linking to image files)
+  + video_tag (linking to video files)
+  + audio_tag (linking to audio files) 
+
+DEFINE YOUR OWN YIELDS:
+app/views/layouts/students.html.erb
+
+NOTE: # Replace "_>"s with the rails / ruby embedded code closing tag -->
+<!DOCTYPE html>
+<!--
+<html>
+  <head>
+-->
+    <!-- Dynamically add a title -->
+<!--
+    <title><%= yield :title %></title> 
+-->
+<!-- Dynamically add some Javascript -->
+<!--<script type="text/javascript">
+        <%= yield :some_javascript %>
+    </script>  
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>
+
+In app/views/users/index.html.erb:
+<% content_for :title, "All Users" %>
+<% content_for :some_javascript do %>
+    alert("This alert comes from the *all users* page");
+<% end %>
+<h1>Listing all users</h1>
+<p>This is where you would have some code to display all the users</p>
+-->
+
+
+<!--
+PARTIALS have a UNIQUE NAMING convention. 
+They start with an underscore (_name) to distinguish them from other views. 
+Depending on their use case, you can save them in the same folder of the name of your resource,
+or you can create a whole new folder:
+
+app/views/shared/_header.html.erb
+<header>
+    <h1>This can be a header shared by multiple views</h1>
+<header>
+
+app/views/shared/_footer.html.erb
+<footer>
+    <h1>This can be a footer shared by multiple views</h1>
+<footer>
+
+app/views/users/student_partial.html.erb
+<div>
+    <p>A paragraph that needs to be in all views for the students resource</p>
+</div>
+
+app/views/users/index.html.erb
+( Notice the omission of the underscore when used/called in views..)
+- Rendering the header partial from another folder:
+
+<%= render "shared/header" %>
+<h1>This is the index view for all the students</h1>
+
+- Rendering the student_partial from the same folder:
+<%#= render "dojos/students/student_partial" %>
+
+- Rendering the footer partial from another folder:
+<%= render "shared/footer" %>
+
