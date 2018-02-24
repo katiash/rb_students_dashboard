@@ -13,7 +13,9 @@
 </body>
 </html>
 
-<!--There are three main components that make up a layout file.
+<%# >>>>>BEGINNING COMMENT TEXT:
+
+<There are three main components that make up a layout file.
 
 Asset tag helpers
 Using yield and content_for
@@ -33,38 +35,37 @@ Asset Tag Helpers:
 DEFINE YOUR OWN YIELDS:
 app/views/layouts/students.html.erb
 
-NOTE: # Replace "_>"s with the rails / ruby embedded code closing tag -->
-<!DOCTYPE html>
-<!--
+NOTE: # Replace "_>"s with the rails / ruby embedded code closing tag
 <html>
   <head>
--->
+
     <!-- Dynamically add a title -->
-<!--
-    <title><%= yield :title %></title> 
--->
+
+    <title><%= yield :title _></title> 
+
 <!-- Dynamically add some Javascript -->
-<!--<script type="text/javascript">
-        <%= yield :some_javascript %>
-    </script>  
+<script type="text/javascript">
+        <%= yield :some_javascript _>
+    </script>
+
   </head>
   <body>
-    <%= yield %>
+    <%= yield _>
   </body>
 </html>
 
 In app/views/users/index.html.erb:
-<% content_for :title, "All Users" %>
-<% content_for :some_javascript do %>
+<% content_for :title, "All Users" _>
+<% content_for :some_javascript do _>
     alert("This alert comes from the *all users* page");
-<% end %>
+<% end _>
 <h1>Listing all users</h1>
 <p>This is where you would have some code to display all the users</p>
--->
 
-
-<!--
+==========================================
 PARTIALS have a UNIQUE NAMING convention. 
+==========================================
+
 They start with an underscore (_name) to distinguish them from other views. 
 Depending on their use case, you can save them in the same folder of the name of your resource,
 or you can create a whole new folder:
@@ -88,12 +89,13 @@ app/views/users/index.html.erb
 ( Notice the omission of the underscore when used/called in views..)
 - Rendering the header partial from another folder:
 
-<%= render "shared/header" %>
+<%= render "shared/header" >
 <h1>This is the index view for all the students</h1>
 
 - Rendering the student_partial from the same folder:
-<%#= render "dojos/students/student_partial" %>
+<%#= render "dojos/students/student_partial" >
 
 - Rendering the footer partial from another folder:
-<%= render "shared/footer" %>
+<%= render "shared/footer" >
 
+>>>>  ENDING COMMENT TEXT %>

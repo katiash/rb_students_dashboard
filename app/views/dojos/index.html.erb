@@ -4,14 +4,12 @@
 
 <!-- rendering the header partial from another folder. Notice the omission of the underscore -->
 <%= render "shared/header" %>
-<h1>This is the index view for all the students</h1>
+
 <!-- rendering the student_partial partial from the same folder. -->
 <%= render "student_partial" %>
-<!-- rendering the footer partial from another folder. -->
-<%= render "shared/footer" %>
 
-<h1>Dojos#index</h1>
-<p>Find me in app/views/dojos/index.html.erb</p>
+<%# NOTICES are for SUCCESS messages on CREATE and UPDATE methods %>
+<%# ALERTS are for ERROR messages on CREATE and UPDATE methods %>
 <p name='notice'><%=notice%></p>
 <p name='alert'><%=alert%></p>
 
@@ -21,7 +19,7 @@
     <th>Street</th>
     <th>City</th>
     <th>State</th>
-    <th>Actions</th>
+    <th colspan="4">Actions</th>
 </tr>
     <% @dojos.each do |dojo| %>
         <tr>
@@ -29,15 +27,15 @@
             <td><%=dojo.street%></td>
             <td><%=dojo.city%></td>
             <td><%=dojo.state%></td>
-            <td><%= link_to 'Show', url_for(dojo) %>
-            <%= link_to 'Edit', [:edit, dojo] %>
-            <form action= '/dojos/<%=dojo.id%>' method='post'>
-                <input type="hidden" name="_method" value="delete">
+            <td><%= link_to 'Show', url_for(dojo) %></td>
+            <td><%= link_to 'Edit', [:edit, dojo] %></td>
+            <td><%=link_to 'Edit (via path)', edit_dojo_path(dojo)%></td>
+            <td><form action= '/dojos/<%=dojo.id%>' method='post'>
                 <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+                <input type="hidden" name="_method" value="delete">
                 <input type="submit" name="commit" value="Delete">
-            </form>
-            <%# <%= link_to 'Destroy', [dojo, method: :delete, data: { confirm: 'Are you sure?' }] %>
-            </td>
+                <%# <%= link_to 'Destroy', [dojo, method: :delete, data: { confirm: 'Are you sure?' }] %>
+            </form><td>
         </tr>
     <%end%> 
         
@@ -59,9 +57,12 @@
 </table>
 
 <br>
-<%=link_to 'New Dojo', new_path %>
+<p style="margin-left: 20px"><%=link_to 'New Dojo', new_path %></p>
 
 <%# <%= url_for(@workshop) %>
-<%# # calls @workshop.to_param which by default returns the id of the object stored in the  %>
+<%# # calls @workshop.to_param which by default returns the 'id' of the object stored in the  %>
 <%# # @workshop instance variable: %>
 <%# # => /workshops/5 %>
+
+<!-- rendering the footer partial from another folder. -->
+<%= render "shared/footer" %>

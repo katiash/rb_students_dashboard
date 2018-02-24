@@ -1,3 +1,51 @@
 // Place all the styles related to the Students controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+h2 {
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  
+table {
+      padding: .5em 0;
+      border: 1px solid #ddd !important;
+    caption { 
+        display: table-caption;
+        text-align: left;
+    }
+    th {color: blueviolet;
+        background: lightgray}
+    tr {
+    width: 100%;
+    
+        td {
+            border-right: 2px solid;
+        }
+        &:first-child {
+            td { border-top: 2px solid; }
+        }
+        &:last-child {
+            td { border-bottom: 2px solid; }
+        }
+        td:first-child {
+            width: 25%;
+            padding: 10px;
+            font-weight: bold;
+            border-left: 2px solid;
+            & + td {
+                width: 45%;
+                padding: 10px;
+            }
+        }
+        td.marker {
+            width: 10%;
+            text-align: center;
+            vertical-align: middle;
+        }
+    }
+
+    tr:nth-child(even) {
+        background: #ccf1fb;
+    }
+}

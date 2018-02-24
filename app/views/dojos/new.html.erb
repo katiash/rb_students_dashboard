@@ -1,11 +1,15 @@
 <%@title="New Dojo"%>
 
-
+<%#
 <h1>Dojos#new</h1>
 <p>Find me in app/views/dojos/new.html.erb</p>
+%>
+
+<!-- rendering the student_partial partial from the same folder. -->
+<%= render "student_partial" %>
 
 <p id='alert'><%=alert%></p>
-<p>The full params are: <%=params%></p>
+
 <%if @new_dojo.errors.count>0 %>
     <%=pluralize(@new_dojo.errors.count, "error") %> have prevented the submission from being saved to records:
     <ul>
@@ -15,17 +19,26 @@
     </ul>
 <%end%>
 
-<form action="/dojos" method="post" id="dojo_create_form">
-    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
-    <label for="dojo[branch]">Branch:</label>
-    <input type="text" name="dojo[branch]" value="<%=@new_dojo.branch%>" >
-    <label for="dojo[street]">Street:</label>
-    <input type="text" name="dojo[street]" value="<%=@new_dojo.street%>">
-    <label for="dojo[city]">City:</label>
-    <input type="text" name="dojo[city]" value="<%=@new_dojo.city%>" >
-    <label for="dojo[state]">State:</label>
-    <input type="text" name="dojo[state]" value="<%=@new_dojo.state%>" >
-    <input type="submit" value = "Submit">
-</form>
+<div style = "padding: 20px; width: 400px;">
+    <form action="/dojos" method="post" id="dojo_create_form">
+        <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+        <label for="dojo[branch]">Branch:</label>
+        <input type="text" name="dojo[branch]" value="<%=@new_dojo.branch%>" >
+        <br>
+        <label for="dojo[street]">Street:</label>
+        <input type="text" name="dojo[street]" value="<%=@new_dojo.street%>">
+        <br>
+        <label for="dojo[city]">City:</label>
+        <input type="text" name="dojo[city]" value="<%=@new_dojo.city%>" >
+        <br>                
+        <label for="dojo[state]">State:</label>
+        <input type="text" name="dojo[state]" value="<%=@new_dojo.state%>" >
+        <br>
+        <br>
+        <input type="submit" value = "Submit">
+        <br>
+        <br>
+    </form>
 
-<%=link_to 'Home', dojos_path%>
+    <%=link_to 'Home', dojos_path%>
+</div>

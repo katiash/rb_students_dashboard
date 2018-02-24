@@ -1,12 +1,33 @@
-<h1>Students#show</h1>
-<p>Find me in app/views/students/show.html.erb</p>
+<%@title="#{@combined_name}"%>
 
-    <% @students.each do |s|%>
-        <table>
+<h1> <%=@dojo.branch[3..@dojo.branch.length]%>'s <%=@combined_name%> </h1>
+
+<p name='notice'><%=notice%></p>
+<p id='alert'><%=alert%></p>
+
+
+<p> Email: <%=@student.email%></p>
+<% if @cohorts.present? %>
+    <table>
+        <caption><strong>Cohort</strong></caption>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Created At</th>
+        </tr>
+        <% @cohorts.each do |c|%>
             <tr>
-                <td><%=s.first_name%></td>
-                <td><%=s.last_name%></td>
-                <td><%=s.email%></td>
-                <td><%=s.created_at.strftime("%Y-%m-%d")%></td>
+                <td><%=c.first_name%></td>
+                <td><%=c.last_name%></td>
+                <td><%=c.email%></td>
+                <td><%=c.created_at.strftime("%Y-%m-%d")%></td>
             </tr>
-    <%end%>
+        <%end%>
+<%else%>
+    <p><i>There is no other students in this cohort with you yet.</i></p>
+<%end%>
+
+<br>
+<br>
+    <%= link_to "Home", dojos_path%> | <%= link_to "Edit", edit_dojo_student_path(@dojo, @student)%>

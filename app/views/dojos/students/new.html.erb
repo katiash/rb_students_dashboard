@@ -1,11 +1,15 @@
-<%@title="New Student for this Dojo"%>
-<p>Find me in app/views/dojos/students/new.html.erb</p>
+<%@title="New Student for #{@dojo.branch[3..-1]}"%>
 
 <h1>New Student</h1>
 
+
+<!-- rendering the student_partial partial from the same folder. -->
+<%= render "dojos/student_partial" %>
+
+<p name='notice'><%=notice%></p>
 <p id='alert'><%=alert%></p>
-<p>The full params are: <%=params%></p>
-<%if @student.errors.count>0 %>
+
+<%if @student.errors.count > 0 %>
     <%=pluralize(@student.errors.count, "error") %> have prevented the submission from being saved to records:
     <ul>
         <% @student.errors.full_messages.each do |error|%>
@@ -14,27 +18,34 @@
     </ul>
 <%end%>
 
-<form action="/students" method="post" id="student_create_form">
-    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
-    <label for="student[first_name]">First Name:</label>
-    <input type="text" name="student[first_name]" value="<%=@student.first_name%>" >
-    <label for="student[street]">Last Name:</label>
-    <input type="text" name="student[last_name]" value="<%=@student.last_name%>">
-    <label for="student[email]">Email Address:</label>
-    <input type="text" name="student[email]" value="<%=@student.email%>" >
-    <label for="student[dojo_id]">Dojo:</label>
-    <select name="student[dojo_id]">
-    <% @dojos.each do |d|%>
-        <% if d.id==@dojo.id%>
-            <option value="<%=d.id%>" selected="selected"><%=d.branch%></option>
-        <%else%>
-            <option value="<%=d.id%>"><%=d.branch%></option> 
+<div style = "padding: 20px; width: 350px;">
+    <form action="/dojos/<%=params[:dojo_id]%>/students" method="post" id="student_create_form">
+        <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+        <label for="student[first_name]">First Name:</label>
+        <input type="text" name="student[first_name]" value="<%=@student.first_name%>" >
+        <br>
+        <label for="student[street]">Last Name:</label>
+        <input type="text" name="student[last_name]" value="<%=@student.last_name%>">
+        <br>
+        <label for="student[email]">Email Address:</label>
+        <input type="text" name="student[email]" value="<%=@student.email%>" >
+        <br>
+        <label for="student[dojo_id]">Dojo:</label>
+        <select name="student[dojo_id]">
+        <% @dojos.each do |d|%>
+            <% if d.id==@dojo.id%>
+                <option value="<%=d.id%>" selected="selected"><%=d.branch%></option>
+            <%else%>
+                <option value="<%=d.id%>"><%=d.branch%></option> 
+            <%end%>
         <%end%>
-    <%end%>
-    </select>
-    <input type="submit" value = "Create">
-</form>
+        </select>
+        <br>
+        <br>
+        <input type="submit" value = "Create">
+    </form>
+</div>
 
-
+<%=link_to "Home", dojos_path %> | <%=link_to "#{@dojo.branch[3..-1]}"%>
 
 

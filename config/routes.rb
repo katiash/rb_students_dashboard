@@ -2,18 +2,26 @@ Rails.application.routes.draw do
   get 'dojos/new'  => 'dojos#new'
   get 'new' => 'dojos#new'
 # students controller:
+  # NOTE THAT WE DO NOT WRITE THIS ROUTE:
+  # get 'dojos/:id' => 'dojos#show', as: 'dojo'
+  # BECAUSE NESTING BELOW WILL FORWARD ALL ROUTES ('dojos/:id' to 'dojos#show' view)...
   resources :dojos, only: [:show] do
     resources :students, except: [:index, :create], controller: 'dojos/students'
+    # THE CONTROLLER SPECIFYING OPTION IS REQUIRED ABOVE (ELSE RAILS DOES NOT FIND 'students' CONTROLLER)
+    # Add on other options separated by a ',':
+    # EX: resources :students, except: [:index, :create], controller: 'dojos/students'
+    # (...will make our app look to a specific path, within dojos folder, for the controller file)
   end 
-  post 'students', to: 'dojos/students#create'
+  get 'dojos/:id/students' => 'dojos#show'
+  post 'dojos/:id/students', to: 'dojos/students#create'
 # get '/dojos/:dojo_id/student/:id', to: 'dojos/students#profile'
 
 # dojos controller:
   get 'dojos/index'
+  get 'index', to: 'dojos#index'
   root 'dojos#index'
   get 'dojos' => 'dojos#index'
   post 'dojos', to: 'dojos#create'
-  # get 'dojos/:id' => 'dojos#show', as: 'dojo'
   get 'dojos/:id/edit' => 'dojos#edit', as: 'edit_dojo'
   delete 'dojos/:id' => 'dojos#destroy', as: 'destroy_dojo'
   patch 'dojos/:id' => 'dojos#update', as: 'update_dojo'

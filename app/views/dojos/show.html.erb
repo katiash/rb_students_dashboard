@@ -1,6 +1,11 @@
 <%@title="#{@dojo.branch[3..@dojo.branch.length]} Dojo"%>
-<h1>Dojos#show</h1>
-<p>Find me in app/views/dojos/show.html.erb</p>
+
+<!-- rendering the student_partial partial from the same folder. -->
+<%= render "student_partial" %>
+
+<p name='notice'><%=notice%></p>
+<p id='alert'><%=alert%></p>
+
 
 <h1> <%=@dojo.branch[3..@dojo.branch.length]%> Dojo</h1>
 
@@ -21,7 +26,7 @@
         <th> First Name </th>
         <th> Last Name </th>
         <th> Email </th>
-        <th> Actions </th>
+        <th colspan="3"> Actions </th>
     </tr>
     <% @students.each do |student|%>
         <tr>
@@ -34,8 +39,8 @@
             </td>
             <td>
                 <form action= "/dojos/<%=@dojo.id%>/students/<%=student.id%>" method='post'>
-                    <input type="hidden" name="_method" value="delete">
-                    <input type="hidden" name="authenticity_token" value="form_authenticity_token">
+                    <input type="hidden" name="authenticity_token" value="form_authenticity_token"> 
+                    <input type="hidden" name="_method" value="delete">                
                     <input type="submit" name="commit" value="Destroy">
                 </form>
             <%# <%= link_to 'Destroy', [dojo, method: :delete, data: { confirm: 'Are you sure?' }] %>
@@ -43,7 +48,8 @@
         </tr>
     <%end%>
 </table>
+
 <%# ANOTHER WAY TO INSERT LINKS: %>
 <%# <a href="/dojos">Home</a> | <a href="/dojos/<%=@dojo.id_>/edit">Edit</a> %>
-<%=link_to 'Home', dojos_path %> | <%=link_to 'Edit', edit_dojo_path%>
-<%=link_to 'Add Student', new_dojo_student_path(@dojo.id)%>
+<%=link_to 'Home', dojos_path %> | <%=link_to 'Edit', edit_dojo_path(@dojo)%> | 
+<%=link_to 'Add New Student', new_dojo_student_path(@dojo.id)%>
